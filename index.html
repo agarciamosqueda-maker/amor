@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para alguien especial</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #ffeef0; font-family: sans-serif; overflow: hidden; }
+        h1 { color: #d63384; text-align: center; padding: 20px; font-size: 1.8rem; }
+        .contenedor { position: relative; width: 100%; height: 60vh; display: flex; justify-content: center; align-items: center; }
+        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border: none; border-radius: 50px; transition: 0.2s; position: absolute; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #btnSi { background-color: #ff4d6d; color: white; z-index: 10; }
+        #btnNo { background-color: #6c757d; color: white; position: static; }
+        #mensaje { display: none; text-align: center; color: #7209b7; padding: 20px; animation: aparecer 0.8s ease-out; }
+        @keyframes aparecer { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+    <div id="contenido">
+        <h1>¿Quieres ser mi novia? ❤️</h1>
+        <div class="contenedor">
+            <button id="btnSi">¡SÍ!</button>
+            <button id="btnNo" onclick="mostrar()">No</button>
+        </div>
+    </div>
+    <div id="mensaje">
+        <h1 style="color: #ff4d6d;">¡Lo sabía! ❤️</h1>
+        <p style="font-size: 1.3rem;">Te dedico toda mi vida y mi amor. Jamás dudaría de lo que siento por ti, porque eres lo más importante. ¡Te amo!</p>
+    </div>
+    <script>
+        const btnSi = document.getElementById('btnSi');
+        const mover = (e) => {
+            e.preventDefault();
+            const x = Math.random() * (window.innerWidth - btnSi.clientWidth);
+            const y = Math.random() * (window.innerHeight - btnSi.clientHeight);
+            btnSi.style.left = x + 'px';
+            btnSi.style.top = y + 'px';
+        };
+        btnSi.addEventListener('mouseover', mover);
+        btnSi.addEventListener('touchstart', mover);
+        function mostrar() {
+            document.getElementById('contenido').style.display = 'none';
+            document.getElementById('mensaje').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
