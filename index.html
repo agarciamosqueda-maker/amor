@@ -2,48 +2,115 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para alguien especial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para ti ❤️</title>
     <style>
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #ffeef0; font-family: sans-serif; overflow: hidden; }
-        h1 { color: #d63384; text-align: center; padding: 20px; font-size: 1.8rem; z-index: 1; }
-        .contenedor { position: relative; width: 100vw; height: 70vh; }
-        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border: none; border-radius: 50px; transition: 0.2s; position: absolute; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        #btnSi { background-color: #ff4d6d; color: white; z-index: 100; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-        #btnNo { background-color: #6c757d; color: white; left: 50%; top: 80%; transform: translate(-50%, -50%); }
-        #mensaje { display: none; text-align: center; color: #7209b7; padding: 20px; animation: aparecer 0.8s ease-out; z-index: 200; }
-        @keyframes aparecer { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+        * { box-sizing: border-box; margin: 0; padding: 0; touch-action: none; }
+        body { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            background-color: #ffeef0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; 
+        }
+        #area-segura {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 { color: #d63384; text-align: center; font-size: 1.5rem; margin-bottom: 30px; padding: 0 20px; }
+        
+        .botones {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button { 
+            padding: 15px 30px; 
+            font-size: 1.2rem; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.1s;
+        }
+
+        #btnSi { 
+            background-color: #ff4d6d; 
+            color: white; 
+            position: absolute; 
+            z-index: 100;
+        }
+
+        #btnNo { background-color: #6c757d; color: white; }
+
+        #mensaje { 
+            display: none; 
+            text-align: center; 
+            padding: 30px; 
+            animation: zoom 0.5s ease-out; 
+        }
+        @keyframes zoom { from { transform: scale(0); } to { transform: scale(1); } }
     </style>
 </head>
 <body>
-    <div id="contenido">
-        <h1>¿Quieres ser mi novia? ❤️</h1>
-        <div class="contenedor">
-            <button id="btnSi">¡SÍ!</button>
-            <button id="btnNo" onclick="mostrar()">No</button>
+
+    <div id="area-segura">
+        <div id="pregunta">
+            <h1>¿Quieres ser mi novia? ❤️</h1>
+            <div class="botones">
+                <button id="btnNo" onclick="mostrar()">No</button>
+                <button id="btnSi" style="top: 55%; left: 50%; transform: translate(-50%, -50%);">¡SÍ!</button>
+            </div>
+        </div>
+
+        <div id="mensaje">
+            <h1 style="color: #ff4d6d;">¡Lo sabía! ❤️</h1>
+            <p style="font-size: 1.2rem; color: #7209b7; line-height: 1.5;">
+                Te dedico toda mi vida y mi amor. Jamás dudaría de lo que siento por ti, porque eres lo más importante. ¡Te amo!
+            </p>
         </div>
     </div>
-    <div id="mensaje">
-        <h1 style="color: #ff4d6d;">¡Lo sabía! ❤️</h1>
-        <p style="font-size: 1.3rem;">Te dedico toda mi vida y mi amor. Jamás dudaría de lo que siento por ti, porque eres lo más importante. ¡Te amo!</p>
-    </div>
+
     <script>
         const btnSi = document.getElementById('btnSi');
-        const mover = (e) => {
+
+        const huir = (e) => {
             e.preventDefault();
-            // Definimos un margen para que no se pegue a los bordes (100px)
-            const padding = 100;
-            const x = Math.random() * (window.innerWidth - padding * 2) + padding;
-            const y = Math.random() * (window.innerHeight - padding * 2) + padding;
             
-            btnSi.style.left = x + 'px';
-            btnSi.style.top = y + 'px';
-            btnSi.style.transform = 'translate(-50%, -50%)'; // Mantiene el centro del botón en la coord
+            // Calculamos el tamaño del botón
+            const btnAncho = btnSi.offsetWidth;
+            const btnAlto = btnSi.offsetHeight;
+
+            // Definimos un margen de seguridad del 15% para que no se pegue a los bordes del celular
+            const margen = 0.15;
+            const widthLimit = window.innerWidth;
+            const heightLimit = window.innerHeight;
+
+            // Generamos posiciones aleatorias dentro del área visible del celular
+            let newX = Math.random() * (widthLimit * (1 - 2 * margen)) + (widthLimit * margen);
+            let newY = Math.random() * (heightLimit * (1 - 2 * margen)) + (heightLimit * margen);
+
+            // Aplicamos la nueva posición
+            btnSi.style.left = `${newX}px`;
+            btnSi.style.top = `${newY}px`;
+            btnSi.style.transform = "translate(-50%, -50%)";
         };
-        btnSi.addEventListener('mouseover', mover);
-        btnSi.addEventListener('touchstart', mover);
+
+        // Eventos para PC y Celular
+        btnSi.addEventListener('mouseover', huir);
+        btnSi.addEventListener('touchstart', huir);
+
         function mostrar() {
-            document.getElementById('contenido').style.display = 'none';
+            document.getElementById('pregunta').style.display = 'none';
             document.getElementById('mensaje').style.display = 'block';
         }
     </script>
